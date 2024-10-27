@@ -1,0 +1,23 @@
+{
+    "sae_configs": [
+        {
+            "d_model": 1280,
+            "n_dirs": 5120,
+            "k": 20
+        },
+        {
+            "d_model": 1280,
+            "n_dirs": 640,
+            "k": 20
+        }
+    ],
+    "bs": 4096,
+    "log_interval": 500,
+    "save_interval": 5000,
+
+    "paths_to_latents": [
+        "PASS YOUR PATHS HERE. Example /home/username/latents/<timestamp>. It should contain tar archives with latents."
+    ],
+    "save_path_base": "<Your SAE save path>",
+    "block_name": "unet.down_blocks.2.attentions.1"
+}
