@@ -8,5 +8,5 @@ wandb
 einops
 transformers
 accelerate
-clip-retrieval
+clip-retrieval==2.24
 huggingface_hub
