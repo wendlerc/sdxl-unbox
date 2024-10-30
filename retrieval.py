@@ -5,6 +5,7 @@ from collections import defaultdict
 import os
 import glob
 import shutil
+import random
 
 class FeatureRetriever:
     def __init__(self,
@@ -14,11 +15,13 @@ class FeatureRetriever:
 
         if force_download or not os.path.exists("./clip"):
             print("Downloading clip resources")
-            snapshot_download(repo_type="dataset", repo_id="wendlerc/sdxl-unbox-clip-indices", cache_dir="./tmp")
-            clip_dirs = glob.glob("./tmp/**/down_10_5120", recursive=True)
+            rand_num = random.randint(0, 100000)
+            tmp_dir = f"./tmp_{rand_num}"
+            snapshot_download(repo_type="dataset", repo_id="wendlerc/sdxl-unbox-clip-indices", cache_dir=tmp_dir)
+            clip_dirs = glob.glob(f"{tmp_dir}/**/down_10_5120", recursive=True)
             if len(clip_dirs) > 0:
                 shutil.copytree(clip_dirs[0].replace("down_10_5120", ""), "./clip", dirs_exist_ok=True)
-                shutil.rmtree("./tmp")
+                shutil.rmtree(tmp_dir)
             else:
                 ValueError("Could not find clip indices in the downloaded repo.")
 
