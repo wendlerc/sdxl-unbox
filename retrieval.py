@@ -1,5 +1,4 @@
-from huggingface_hub import snapshot_download, hf_hub_download
-from datasets import load_dataset
+from huggingface_hub import snapshot_download
 from clip_retrieval.clip_back import load_clip_indices, KnnService, ClipOptions
 from collections import defaultdict
 import os
