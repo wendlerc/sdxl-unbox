@@ -59,7 +59,15 @@ We provide pretrained SAE checkpoints for 4 key transformer blocks in SDXL Turbo
 If you find this code useful in your research, please cite our paper:
 
 ```bibtex
-[Citation placeholder]
+@misc{surkov2024unpackingsdxlturbointerpreting,
+      title={Unpacking SDXL Turbo: Interpreting Text-to-Image Models with Sparse Autoencoders}, 
+      author={Viacheslav Surkov and Chris Wendler and Mikhail Terekhov and Justin Deschenaux and Robert West and Caglar Gulcehre},
+      year={2024},
+      eprint={2410.22366},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2410.22366}, 
+}
 ```
 
 ## Acknowledgements
