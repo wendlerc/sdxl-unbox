@@ -281,7 +281,7 @@ def create_top_images_plus_search_part(retriever, demo):
             index = search_by_index
             block = block_select.split(" ")[0]
             url = f"https://huggingface.co/surokpro2/sdxl_sae_images/resolve/main/{block}/{index}.jpg"
-            return url, index, {"image": url, "feature_idx": index, "features": top_indices}
+            return url, {"image": url, "feature_idx": index, "features": top_indices}
         else:
             if retriever is None:
                 raise ValueError("Feature retrieval is not enabled")
@@ -294,10 +294,10 @@ def create_top_images_plus_search_part(retriever, demo):
             top_indices = list(map(int, top_indices))
             index = top_indices[0]
             url = f"https://huggingface.co/surokpro2/sdxl_sae_images/resolve/main/{block}/{index}.jpg"
-            return url, index, {"image": url, "feature_idx": index, "features": top_indices[:10]}
+            return url, {"image": url, "feature_idx": index, "features": top_indices[:10]}
 
     def update_radio(cache):
-        return gr.update(choices=cache["features"])
+        return gr.update(choices=cache["features"], value=cache["feature_idx"])
 
     def update_img(cache, block_select, index):
         block = block_select.split(" ")[0]
@@ -331,10 +331,10 @@ def create_top_images_plus_search_part(retriever, demo):
 
         search_by_text.change(update_cache, 
                         [block_select, search_by_text, search_by_index], 
-                        outputs=[image, search_by_index, cache])
+                        outputs=[image, cache])
         block_select.select(update_cache,
                         [block_select, search_by_text, search_by_index],  
-                        outputs=[image, search_by_index, cache])
+                        outputs=[image, cache])
         cache.change(update_radio, [cache], outputs=[radio])
         radio.select(update_img, [cache, block_select, radio], outputs=[image])
         search_by_index.change(update_img, [cache, block_select, search_by_index], outputs=[image])
