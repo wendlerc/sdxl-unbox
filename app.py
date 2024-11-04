@@ -274,40 +274,75 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
     return intervene_tab
 
 
-def create_top_images_part(retriever, demo):
-    def update_top_images(block_select, brush_index, searchbar):
-        if searchbar == "":
+def create_top_images_plus_search_part(retriever, demo):
+    def update_cache(block_select, search_by_text, search_by_index):
+        if search_by_text == "":
+            top_indices = []
+            index = search_by_index
             block = block_select.split(" ")[0]
-            url = f"https://huggingface.co/surokpro2/sdxl_sae_images/resolve/main/{block}/{brush_index}.jpg"
-            index = brush_index
+            url = f"https://huggingface.co/surokpro2/sdxl_sae_images/resolve/main/{block}/{index}.jpg"
+            return url, index, {"image": url, "feature_idx": index, "features": top_indices}
         else:
             if retriever is None:
                 raise ValueError("Feature retrieval is not enabled")
-            top_indices = list(retriever.query_text(searchbar, block_select.split(" ")[0]).keys())
+            lock.acquire()
+            try: 
+                top_indices = list(retriever.query_text(search_by_text, block_select.split(" ")[0]).keys())
+            finally:
+                lock.release()
             block = block_select.split(" ")[0]
-            index = int(top_indices[brush_index])
+            top_indices = list(map(int, top_indices))
+            index = top_indices[0]
             url = f"https://huggingface.co/surokpro2/sdxl_sae_images/resolve/main/{block}/{index}.jpg"
-        return url, index
+            return url, index, {"image": url, "feature_idx": index, "features": top_indices[:10]}
 
-    with gr.Tab("Top Images", elem_classes="tabs") as top_images_tab:
-        with gr.Row():
-            block_select = gr.Dropdown(
-                choices=["up.0.1 (style)", "down.2.1 (composition)", "up.0.0 (details)", "mid.0"], 
-                value="down.2.1 (composition)",
-                label="Select block"
-            )
-            brush_index = gr.Number(value=0, label="Page index", minimum=0, maximum=5119, precision=0)
-            searchbar = gr.Textbox(lines=1, label="Search", placeholder="Search for images")
-        with gr.Row():
-            display_index = gr.Label(label="Brush index", value="0")
-        with gr.Row():
-            image = gr.Image(width=600, height=600, label="Top Images")
+    def update_radio(cache):
+        return gr.update(choices=cache["features"])
 
-        block_select.select(update_top_images, [block_select, brush_index, searchbar], outputs=[image, display_index])
-        brush_index.change(update_top_images, [block_select, brush_index, searchbar], outputs=[image, display_index])
-        searchbar.change(update_top_images, [block_select, brush_index, searchbar], outputs=[image, display_index])
-        demo.load(update_top_images, [block_select, brush_index, searchbar], outputs=[image, display_index])
-    return top_images_tab
+    def update_img(cache, block_select, index):
+        block = block_select.split(" ")[0]
+        url = f"https://huggingface.co/surokpro2/sdxl_sae_images/resolve/main/{block}/{index}.jpg"
+        return url
+
+    with gr.Tab("Top Images", elem_classes="tabs") as explore_tab:
+        cache = gr.State(value={
+            "image": None,
+            "feature_idx": None,
+            "features": []
+        })
+        with gr.Row():
+            with gr.Column(scale=7):
+                with gr.Row():
+                    # top images
+                    image = gr.Image(width=600, height=600, image_mode="RGB", label="Top images")
+            
+            with gr.Column(scale=4):
+                block_select = gr.Dropdown(
+                    choices=["up.0.1 (style)", "down.2.1 (composition)", "up.0.0 (details)", "mid.0"], 
+                    value="down.2.1 (composition)",
+                    label="Select block", 
+                    elem_id="block_select",
+                    interactive=True
+                )
+                search_by_index = gr.Number(value=0, label="Search by index", minimum=0, maximum=5119, precision=0)
+                search_by_text = gr.Textbox(lines=1, label="Search by text", value="")
+                radio = gr.Radio(choices=[], label="Select a feature", interactive=True)
+        
+
+        search_by_text.change(update_cache, 
+                        [block_select, search_by_text, search_by_index], 
+                        outputs=[image, search_by_index, cache])
+        block_select.select(update_cache,
+                        [block_select, search_by_text, search_by_index],  
+                        outputs=[image, search_by_index, cache])
+        cache.change(update_radio, [cache], outputs=[radio])
+        radio.select(update_img, [cache, block_select, radio], outputs=[image])
+        search_by_index.change(update_img, [cache, block_select, search_by_index], outputs=[image])
+        demo.load(update_img, 
+                  [cache, block_select, search_by_index], 
+                  outputs=[image])
+
+    return explore_tab
 
 
 def create_intro_part():
@@ -366,7 +401,7 @@ def create_demo(pipe, saes_dict, means_dict, use_retrieval=True):
             pass
         with create_prompt_part(pipe, saes_dict, demo):
             pass
-        with create_top_images_part(retriever, demo):
+        with create_top_images_plus_search_part(retriever, demo):
             pass
         with create_intervene_part(pipe, saes_dict, means_dict, demo):
             pass
