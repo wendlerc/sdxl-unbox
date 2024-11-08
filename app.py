@@ -294,7 +294,7 @@ def create_top_images_plus_search_part(retriever, demo):
             top_indices = list(map(int, top_indices))
             index = top_indices[0]
             url = f"https://huggingface.co/surokpro2/sdxl_sae_images/resolve/main/{block}/{index}.jpg"
-            return url, {"image": url, "feature_idx": index, "features": top_indices[:10]}
+            return url, {"image": url, "feature_idx": index, "features": top_indices[:20]}
 
     def update_radio(cache):
         return gr.update(choices=cache["features"], value=cache["feature_idx"])
