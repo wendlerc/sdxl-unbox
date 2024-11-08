@@ -57,7 +57,8 @@ class FeatureRetriever:
         results = self.knn_service[block].query(
             text_input=query,
             num_images=self.num_images,
-            num_result_ids=self.num_images
+            num_result_ids=self.num_images,
+            deduplicate=True,
         )
         feat_sims = defaultdict(list)
         feat_scores = {}
