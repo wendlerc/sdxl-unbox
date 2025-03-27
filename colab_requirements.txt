@@ -1,5 +1,5 @@
 diffusers==0.29.2
-gradio==5.4.0
+gradio==4.44.1
 numpy
 matplotlib
 pillow
@@ -7,5 +7,4 @@ wandb
 einops
 transformers
 huggingface_hub
-websockets>=13.0.0,<15.1.0
-
+git+https://github.com/wendlerc/clip-retrieval.git
