@@ -6,5 +6,4 @@ pillow
 wandb
 einops
 transformers
-accelerate
 huggingface_hub
