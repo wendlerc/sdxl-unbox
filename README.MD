@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 ## Demo Application
 
-You can try our gradio demo application (`app.ipynb`) to browse and experiment with 20K+ features of our trained SAEs out-of-the-box. You can find the same notebook on [Google Colab](https://colab.research.google.com/drive/1Sd-g3w2Fwv7pc_fxgeQOR3S_RKr18qMP?usp=sharing).
+You can try our gradio demo application (`app.ipynb`) to browse and experiment with 20K+ features of our trained SAEs out-of-the-box. You can find the same notebook on [Google Colab](https://colab.research.google.com/drive/1lWZ2yCRwCf4iuykvb-91QYUNkuzIwI3k?usp=sharing).
 
 ## Usage
 
@@ -59,7 +59,15 @@ We provide pretrained SAE checkpoints for 4 key transformer blocks in SDXL Turbo
 If you find this code useful in your research, please cite our paper:
 
 ```bibtex
-[Citation placeholder]
+@misc{surkov2024unpackingsdxlturbointerpreting,
+      title={Unpacking SDXL Turbo: Interpreting Text-to-Image Models with Sparse Autoencoders}, 
+      author={Viacheslav Surkov and Chris Wendler and Mikhail Terekhov and Justin Deschenaux and Robert West and Caglar Gulcehre},
+      year={2024},
+      eprint={2410.22366},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2410.22366}, 
+}
 ```
 
 ## Acknowledgements
