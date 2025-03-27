@@ -3,8 +3,6 @@ gradio==4.44.1
 numpy
 matplotlib
 pillow
-wandb
 einops
 transformers
 huggingface_hub
-git+https://github.com/wendlerc/clip-retrieval.git
