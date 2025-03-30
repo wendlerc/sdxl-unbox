@@ -20,6 +20,8 @@ code_to_block = {
 }
 lock = threading.Lock()
 
+guidance_scale_default = 8.0
+
 def process_cache(cache, saes_dict):
 
     top_features_dict = {}
@@ -30,6 +32,10 @@ def process_cache(cache, saes_dict):
         sae = saes_dict[code]
 
         diff = cache["output"][block] - cache["input"][block]
+        if diff.shape[0] == 2: # guidance is on and we need to select the second output
+            diff = diff[1].unsqueeze(0)
+
+        diff = diff[:, ]
         diff = diff.permute(0, 1, 3, 4, 2).squeeze(0).squeeze(0)
         with torch.no_grad():
             sparse_maps = sae.encode(diff)
@@ -69,12 +75,14 @@ def create_prompt_part(pipe, saes_dict, demo):
     def image_gen(prompt):
         lock.acquire()
         try:
+            n_steps = 25 if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 1
+            guidance_scale = guidance_scale_default if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 0.0
             images, cache = pipe.run_with_cache(
                 prompt,
                 positions_to_cache=list(code_to_block.values()),
-                num_inference_steps=1,
+                num_inference_steps=n_steps,
                 generator=torch.Generator(device="cpu").manual_seed(42),
-                guidance_scale=0.0,
+                guidance_scale=guidance_scale,
                 save_input=True,
                 save_output=True
             )
@@ -140,13 +148,14 @@ def downsample_mask(image, factor):
 def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, means_dict, demo):
     def image_gen(prompt, num_steps):
         lock.acquire()
+        guidance_scale = guidance_scale_default if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 0.0
         try:
             images = pipe.run_with_hooks(
                 prompt,
                 position_hook_dict={},
                 num_inference_steps=num_steps,
                 generator=torch.Generator(device="cpu").manual_seed(42),
-                guidance_scale=0.0
+                guidance_scale=guidance_scale,
             )
         finally:
             lock.release()
@@ -174,12 +183,13 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
 
         lock.acquire()
         try:
+            guidance_scale = guidance_scale_default if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 0.0
             image = pipe.run_with_hooks(
                 prompt,
                 position_hook_dict={code_to_block[block]: hook},
                 num_inference_steps=num_steps,
                 generator=torch.Generator(device="cpu").manual_seed(42),
-                guidance_scale=0.0
+                guidance_scale=guidance_scale
             ).images[0]
         finally:
             lock.release()
@@ -202,12 +212,14 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
 
         lock.acquire()
         try:
+            n_steps = 25 if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 1
+            guidance_scale = guidance_scale_default if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 0.0
             image = pipe.run_with_hooks(
                 "",
                 position_hook_dict={code_to_block[block]: hook},
-                num_inference_steps=1,
+                num_inference_steps=n_steps,
                 generator=torch.Generator(device="cpu").manual_seed(42),
-                guidance_scale=0.0
+                guidance_scale=guidance_scale,
             ).images[0]
         finally:
             lock.release()
@@ -220,8 +232,9 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
                 # Generation column
                 with gr.Row():
                     # prompt and num_steps
-                    prompt_field = gr.Textbox(lines=1, label="Enter prompt here", value="A dog plays with a ball, cartoon", elem_id="prompt_input")
-                    num_steps = gr.Number(value=1, label="Number of steps", minimum=1, maximum=4, elem_id="num_steps", precision=0)
+                    n_steps = 25 if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 1
+                    prompt_field = gr.Textbox(lines=1, label="Enter prompt here", value="A dog plays with a ball, cartoon", elem_id="prompt_input")                    
+                    num_steps = gr.Number(value=n_steps, label="Number of steps", minimum=1, maximum=25, elem_id="num_steps", precision=0)
                 with gr.Row():
                     # Generate button
                     button_generate = gr.Button("Generate", elem_id="generate_button")
