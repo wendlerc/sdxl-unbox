@@ -22,7 +22,7 @@ lock = threading.Lock()
 
 guidance_scale_default = 8.0
 
-def process_cache(cache, saes_dict):
+def process_cache(cache, saes_dict, timestep=None):
 
     top_features_dict = {}
     sparse_maps_dict = {}
@@ -35,7 +35,10 @@ def process_cache(cache, saes_dict):
         if diff.shape[0] == 2: # guidance is on and we need to select the second output
             diff = diff[1].unsqueeze(0)
 
-        diff = diff[:, ]
+        # If a specific timestep is provided, select that timestep from the cached activations
+        if timestep is not None and timestep < diff.shape[1]:
+            diff = diff[:, timestep:timestep+1]
+        
         diff = diff.permute(0, 1, 3, 4, 2).squeeze(0).squeeze(0)
         with torch.no_grad():
             sparse_maps = sae.encode(diff)
@@ -72,24 +75,34 @@ def plot_image_heatmap(cache, block_select, radio):
 
 
 def create_prompt_part(pipe, saes_dict, demo):
-    def image_gen(prompt):
+    def image_gen(prompt, timestep=None, num_steps=None, guidance_scale=None):
         lock.acquire()
         try:
-            n_steps = 25 if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 1
-            guidance_scale = guidance_scale_default if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 0.0
+            # Default values
+            is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
+            default_n_steps = 25 if is_base_model else 1
+            default_guidance = guidance_scale_default if is_base_model else 0.0
+            
+            # Use provided values if available, otherwise use defaults
+            n_steps = default_n_steps if num_steps is None else int(num_steps)
+            guidance = default_guidance if guidance_scale is None else float(guidance_scale)
+            
+            # Convert timestep to integer if it's not None
+            timestep_int = None if timestep is None else int(timestep)
+            
             images, cache = pipe.run_with_cache(
                 prompt,
                 positions_to_cache=list(code_to_block.values()),
                 num_inference_steps=n_steps,
                 generator=torch.Generator(device="cpu").manual_seed(42),
-                guidance_scale=guidance_scale,
+                guidance_scale=guidance,
                 save_input=True,
                 save_output=True
             )
         finally:
             lock.release()
         
-        top_features_dict, top_sparse_maps_dict = process_cache(cache, saes_dict)
+        top_features_dict, top_sparse_maps_dict = process_cache(cache, saes_dict, timestep_int)
         return images.images[0], {
             "image": images.images[0],
             "heatmaps": top_sparse_maps_dict,
@@ -103,6 +116,10 @@ def create_prompt_part(pipe, saes_dict, demo):
     def update_img(cache, block_select, radio):
         new_img = plot_image_heatmap(cache, block_select, radio)
         return new_img
+        
+    def update_visibility():
+        is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
+        return gr.update(visible=is_base_model), gr.update(visible=is_base_model)
 
     with gr.Tab("Explore", elem_classes="tabs") as explore_tab:
         cache = gr.State(value={
@@ -127,13 +144,58 @@ def create_prompt_part(pipe, saes_dict, demo):
                     elem_id="block_select",
                     interactive=True
                 )
+                
+                # Add SDXL base specific controls
+                is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
+                
+                with gr.Group() as sdxl_base_controls:
+                    steps_slider = gr.Slider(
+                        minimum=1,
+                        maximum=50,
+                        value=25 if is_base_model else 1,
+                        step=1,
+                        label="Number of steps",
+                        elem_id="steps_slider",
+                        interactive=True,
+                        visible=is_base_model
+                    )
+                    
+                    guidance_slider = gr.Slider(
+                        minimum=0.0,
+                        maximum=15.0,
+                        value=guidance_scale_default,
+                        step=0.1,
+                        label="Guidance scale",
+                        elem_id="guidance_slider",
+                        interactive=True,
+                        visible=is_base_model
+                    )
+                
+                # Add timestep selector
+                n_steps = 25 if is_base_model else 1
+                timestep_selector = gr.Slider(
+                    minimum=0,
+                    maximum=n_steps-1,
+                    value=None,
+                    step=1,
+                    label="Timestep (leave empty for average across all steps)",
+                    elem_id="timestep_selector",
+                    interactive=True
+                )
+                
+                # Update max timestep when steps change
+                steps_slider.change(lambda s: gr.update(maximum=s-1), [steps_slider], [timestep_selector])
+                
                 radio = gr.Radio(choices=[], label="Select a feature", interactive=True)
         
-        button.click(image_gen, [prompt_field], outputs=[image, cache])
+        button.click(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
         cache.change(update_radio, [cache, block_select], outputs=[radio])
         block_select.select(update_radio, [cache, block_select], outputs=[radio])
         radio.select(update_img, [cache, block_select, radio], outputs=[image])
-        demo.load(image_gen, [prompt_field], outputs=[image, cache])
+        timestep_selector.change(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
+        steps_slider.change(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
+        guidance_slider.change(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
+        demo.load(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
 
     return explore_tab
 
@@ -146,26 +208,35 @@ def downsample_mask(image, factor):
     return downsampled
 
 def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, means_dict, demo):
-    def image_gen(prompt, num_steps):
+    def image_gen(prompt, num_steps, guidance_scale=None):
         lock.acquire()
-        guidance_scale = guidance_scale_default if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 0.0
+        is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
+        default_guidance = guidance_scale_default if is_base_model else 0.0
+        guidance = default_guidance if guidance_scale is None else float(guidance_scale)
+        
         try:
             images = pipe.run_with_hooks(
                 prompt,
                 position_hook_dict={},
-                num_inference_steps=num_steps,
+                num_inference_steps=int(num_steps),
                 generator=torch.Generator(device="cpu").manual_seed(42),
-                guidance_scale=guidance_scale,
+                guidance_scale=guidance,
             )
         finally:
             lock.release()
-        return images.images[0]
+        if images.images[0].size == (1024, 1024):
+            return images.images[0].resize((512, 512))
+        else:
+            return images.images[0]
 
-    def image_mod(prompt, block_str, brush_index, strength, num_steps, input_image):
+    def image_mod(prompt, block_str, brush_index, strength, num_steps, input_image, guidance_scale=None):
         block = block_str.split(" ")[0]
-
+        is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
         mask = (input_image["layers"][0] > 0)[:, :, -1].astype(float)
-        mask = downsample_mask(mask, 32)
+        if is_base_model:
+            mask = downsample_mask(mask, 16)
+        else:
+            mask = downsample_mask(mask, 32)
         mask = torch.tensor(mask, dtype=torch.float32, device="cuda")
 
         if mask.sum() == 0:
@@ -182,20 +253,23 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
             )
 
         lock.acquire()
+        is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
+        default_guidance = guidance_scale_default if is_base_model else 0.0
+        guidance = default_guidance if guidance_scale is None else float(guidance_scale)
+        
         try:
-            guidance_scale = guidance_scale_default if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 0.0
             image = pipe.run_with_hooks(
                 prompt,
                 position_hook_dict={code_to_block[block]: hook},
-                num_inference_steps=num_steps,
+                num_inference_steps=int(num_steps),
                 generator=torch.Generator(device="cpu").manual_seed(42),
-                guidance_scale=guidance_scale
+                guidance_scale=guidance
             ).images[0]
         finally:
             lock.release()
         return image
 
-    def feature_icon(block_str, brush_index):
+    def feature_icon(block_str, brush_index, guidance_scale=None):
         block = block_str.split(" ")[0]
         if block in ["mid.0", "up.0.0"]:
             gr.Info("Note that Feature Icon works best with down.2.1 and up.0.1 blocks but feel free to explore", duration=3)
@@ -211,15 +285,18 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
             )
 
         lock.acquire()
+        is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
+        n_steps = 25 if is_base_model else 1
+        default_guidance = guidance_scale_default if is_base_model else 0.0
+        guidance = default_guidance if guidance_scale is None else float(guidance_scale)
+        
         try:
-            n_steps = 25 if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 1
-            guidance_scale = guidance_scale_default if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 0.0
             image = pipe.run_with_hooks(
                 "",
                 position_hook_dict={code_to_block[block]: hook},
                 num_inference_steps=n_steps,
                 generator=torch.Generator(device="cpu").manual_seed(42),
-                guidance_scale=guidance_scale,
+                guidance_scale=guidance,
             ).images[0]
         finally:
             lock.release()
@@ -232,9 +309,23 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
                 # Generation column
                 with gr.Row():
                     # prompt and num_steps
-                    n_steps = 25 if pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0" else 1
+                    is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
+                    n_steps = 25 if is_base_model else 1
                     prompt_field = gr.Textbox(lines=1, label="Enter prompt here", value="A dog plays with a ball, cartoon", elem_id="prompt_input")                    
-                    num_steps = gr.Number(value=n_steps, label="Number of steps", minimum=1, maximum=25, elem_id="num_steps", precision=0)
+                    
+                with gr.Row():
+                    num_steps = gr.Number(value=n_steps, label="Number of steps", minimum=1, maximum=50, elem_id="num_steps", precision=0)
+                    guidance_slider = gr.Slider(
+                        minimum=0.0,
+                        maximum=15.0,
+                        value=guidance_scale_default,
+                        step=0.1,
+                        label="Guidance scale",
+                        elem_id="paint_guidance_slider",
+                        interactive=True,
+                        visible=is_base_model
+                    )
+                    
                 with gr.Row():
                     # Generate button
                     button_generate = gr.Button("Generate", elem_id="generate_button")
@@ -275,13 +366,13 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
             o_image = gr.Image(width=512, height=512, label="Output Image")
 
         # Set up the click events
-        button_generate.click(image_gen, inputs=[prompt_field, num_steps], outputs=[image_state])
+        button_generate.click(image_gen, inputs=[prompt_field, num_steps, guidance_slider], outputs=[image_state])
         image_state.change(lambda x: x, [image_state], [i_image])
         button.click(image_mod, 
-                    inputs=[prompt_field, block_select, brush_index, strength, num_steps, i_image], 
+                    inputs=[prompt_field, block_select, brush_index, strength, num_steps, i_image, guidance_slider], 
                     outputs=o_image)
-        button_icon.click(feature_icon, inputs=[block_select, brush_index], outputs=o_image)
-        demo.load(image_gen, [prompt_field, num_steps], outputs=[image_state])
+        button_icon.click(feature_icon, inputs=[block_select, brush_index, guidance_slider], outputs=o_image)
+        demo.load(image_gen, [prompt_field, num_steps, guidance_slider], outputs=[image_state])
 
 
     return intervene_tab
