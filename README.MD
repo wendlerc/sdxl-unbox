@@ -1,8 +1,14 @@
 # Unpacking SDXL Turbo: Interpreting Text-to-Image Models with Sparse Autoencoders
 
+[![arXiv](https://img.shields.io/badge/arXiv-Paper-red)](https://arxiv.org/abs/2410.22366) 
+[![Hugging Face Spaces Demo](https://img.shields.io/badge/Hugging%20Face-Demo-blue)](https://huggingface.co/spaces/surokpro2/Unboxing_SDXL_with_SAEs) 
+[![Colab](https://img.shields.io/badge/Colab-Notebook-yellow)](https://colab.research.google.com/drive/1Sd-g3w2Fwv7pc_fxgeQOR3S_RKr18qMP?usp=sharing)
+
+
 ![modification demostration](resourses/image.png)
 
 This repository contains code to reproduce results from our paper on using sparse autoencoders (SAEs) to analyze and interpret the internal representations of text-to-image diffusion models, specifically SDXL Turbo.
+
 
 ## Repository Structure
 
