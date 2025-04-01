@@ -20,7 +20,8 @@ code_to_block = {
 }
 lock = threading.Lock()
 
-guidance_scale_default = 8.0
+base_guidance_scale_default = 8.0
+turbo_guidance_scale_default = 0.0
 
 def process_cache(cache, saes_dict, timestep=None):
 
@@ -81,7 +82,7 @@ def create_prompt_part(pipe, saes_dict, demo):
             # Default values
             is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
             default_n_steps = 25 if is_base_model else 1
-            default_guidance = guidance_scale_default if is_base_model else 0.0
+            default_guidance = base_guidance_scale_default if is_base_model else turbo_guidance_scale_default
             
             # Use provided values if available, otherwise use defaults
             n_steps = default_n_steps if num_steps is None else int(num_steps)
@@ -163,7 +164,7 @@ def create_prompt_part(pipe, saes_dict, demo):
                     guidance_slider = gr.Slider(
                         minimum=0.0,
                         maximum=15.0,
-                        value=guidance_scale_default,
+                        value=base_guidance_scale_default if is_base_model else turbo_guidance_scale_default,
                         step=0.1,
                         label="Guidance scale",
                         elem_id="guidance_slider",
@@ -171,17 +172,20 @@ def create_prompt_part(pipe, saes_dict, demo):
                         visible=is_base_model
                     )
                 
-                # Add timestep selector
-                n_steps = 25 if is_base_model else 1
-                timestep_selector = gr.Slider(
-                    minimum=0,
-                    maximum=n_steps-1,
-                    value=None,
-                    step=1,
-                    label="Timestep (leave empty for average across all steps)",
-                    elem_id="timestep_selector",
-                    interactive=True
-                )
+                    # Add timestep selector
+                    n_steps = 25 if is_base_model else 1
+                    timestep_selector = gr.Slider(
+                        minimum=0,
+                        maximum=n_steps-1,
+                        value=None,
+                        step=1,
+                        label="Timestep (leave empty for average across all steps)",
+                        elem_id="timestep_selector",
+                        interactive=True,
+                        visible=is_base_model
+                    )
+                    recompute_button = gr.Button("Recompute", elem_id="recompute_button",
+                                                 visible=is_base_model)
                 
                 # Update max timestep when steps change
                 steps_slider.change(lambda s: gr.update(maximum=s-1), [steps_slider], [timestep_selector])
@@ -192,9 +196,7 @@ def create_prompt_part(pipe, saes_dict, demo):
         cache.change(update_radio, [cache, block_select], outputs=[radio])
         block_select.select(update_radio, [cache, block_select], outputs=[radio])
         radio.select(update_img, [cache, block_select, radio], outputs=[image])
-        timestep_selector.change(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
-        steps_slider.change(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
-        guidance_slider.change(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
+        recompute_button.click(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
         demo.load(image_gen, [prompt_field, timestep_selector, steps_slider, guidance_slider], outputs=[image, cache])
 
     return explore_tab
@@ -211,9 +213,8 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
     def image_gen(prompt, num_steps, guidance_scale=None):
         lock.acquire()
         is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
-        default_guidance = guidance_scale_default if is_base_model else 0.0
+        default_guidance = base_guidance_scale_default if is_base_model else turbo_guidance_scale_default
         guidance = default_guidance if guidance_scale is None else float(guidance_scale)
-        
         try:
             images = pipe.run_with_hooks(
                 prompt,
@@ -254,7 +255,7 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
 
         lock.acquire()
         is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
-        default_guidance = guidance_scale_default if is_base_model else 0.0
+        default_guidance = base_guidance_scale_default if is_base_model else turbo_guidance_scale_default
         guidance = default_guidance if guidance_scale is None else float(guidance_scale)
         
         try:
@@ -287,7 +288,7 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
         lock.acquire()
         is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
         n_steps = 25 if is_base_model else 1
-        default_guidance = guidance_scale_default if is_base_model else 0.0
+        default_guidance = base_guidance_scale_default if is_base_model else turbo_guidance_scale_default
         guidance = default_guidance if guidance_scale is None else float(guidance_scale)
         
         try:
@@ -318,7 +319,7 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
                     guidance_slider = gr.Slider(
                         minimum=0.0,
                         maximum=15.0,
-                        value=guidance_scale_default,
+                        value=base_guidance_scale_default if is_base_model else turbo_guidance_scale_default,
                         step=0.1,
                         label="Guidance scale",
                         elem_id="paint_guidance_slider",
