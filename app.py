@@ -229,7 +229,7 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
         else:
             return images.images[0]
 
-    def image_mod(prompt, block_str, brush_index, strength, num_steps, input_image, guidance_scale=None):
+    def image_mod(prompt, block_str, brush_index, strength, num_steps, input_image, guidance_scale=None, start_index=None, end_index=None):
         block = block_str.split(" ")[0]
         is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
         mask = (input_image["layers"][0] > 0)[:, :, -1].astype(float)
@@ -241,8 +241,21 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
 
         if mask.sum() == 0:
             gr.Info("No mask selected, please draw on the input image")
-
+            
         if is_base_model:
+            # Set default values for start_index and end_index if not provided
+            if start_index is None:
+                start_index = 0
+            if end_index is None:
+                end_index = int(num_steps)
+                
+            # Ensure start_index and end_index are within valid ranges
+            start_index = max(0, min(int(start_index), int(num_steps)))
+            end_index = max(0, min(int(end_index), int(num_steps)))
+            
+            # Ensure start_index is less than end_index
+            if start_index >= end_index:
+                start_index = max(0, end_index - 1)
             def myhook(module, input, output):
                 return add_feature_on_area_base(
                     saes_dict[block],
@@ -251,7 +264,7 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
                     module,
                     input, 
                     output)
-            hook = TimedHook(myhook, int(num_steps), np.arange(10, int(num_steps)))
+            hook = TimedHook(myhook, int(num_steps), np.arange(start_index, end_index))
         else:
             def hook(module, input, output):
                 return add_feature_on_area_turbo(
@@ -361,6 +374,11 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
                             brush_index = gr.Number(value=0, label="Brush index", minimum=0, maximum=5119, elem_id="brush_index", precision=0)
                         with gr.Row():
                             button_icon = gr.Button('Feature Icon', elem_id="feature_icon_button")
+                        with gr.Row():
+                            gr.Markdown("**TimedHook Range** (which steps to apply the feature)", visible=is_base_model)
+                        with gr.Row():
+                            start_index = gr.Number(value=0, label="Start index", minimum=0, maximum=n_steps, elem_id="start_index", precision=0, visible=is_base_model)
+                            end_index = gr.Number(value=n_steps, label="End index", minimum=0, maximum=n_steps, elem_id="end_index", precision=0, visible=is_base_model)
                     with gr.Column(scale=3):
                         with gr.Row():
                             strength = gr.Number(value=10, label="Strength", minimum=-40, maximum=40, elem_id="strength", precision=2)
@@ -385,8 +403,16 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
         # Set up the click events
         button_generate.click(image_gen, inputs=[prompt_field, num_steps, guidance_slider], outputs=[image_state])
         image_state.change(lambda x: x, [image_state], [i_image])
+        
+        if is_base_model:
+            # Update max values for start_index and end_index when num_steps changes
+            def update_index_maxes(steps):
+                return gr.update(maximum=steps), gr.update(maximum=steps)
+        
+            num_steps.change(update_index_maxes, [num_steps], [start_index, end_index])
+        
         button.click(image_mod, 
-                    inputs=[prompt_field, block_select, brush_index, strength, num_steps, i_image, guidance_slider], 
+                    inputs=[prompt_field, block_select, brush_index, strength, num_steps, i_image, guidance_slider, start_index, end_index], 
                     outputs=o_image)
         button_icon.click(feature_icon, inputs=[block_select, brush_index, guidance_slider], outputs=o_image)
         demo.load(image_gen, [prompt_field, num_steps, guidance_slider], outputs=[image_state])
