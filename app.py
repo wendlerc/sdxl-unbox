@@ -4,7 +4,7 @@ import torch
 from PIL import Image
 from SDLens import HookedStableDiffusionXLPipeline
 from SAE import SparseAutoencoder
-from utils import add_feature_on_area_base, replace_with_feature_base, add_feature_on_area_turbo, replace_with_feature_turbo
+from utils import TimedHook, add_feature_on_area_base, replace_with_feature_base, add_feature_on_area_turbo, replace_with_feature_turbo
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
@@ -242,17 +242,18 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
         if mask.sum() == 0:
             gr.Info("No mask selected, please draw on the input image")
 
-        def hook(module, input, output):
-            if is_base_model:
+        if is_base_model:
+            def myhook(module, input, output):
                 return add_feature_on_area_base(
                     saes_dict[block],
                     brush_index,
                     mask * means_dict[block][brush_index] * strength,
                     module,
-                    input,
-                    output
-                )
-            else:
+                    input, 
+                    output)
+            hook = TimedHook(myhook, int(num_steps), np.arange(10, int(num_steps)))
+        else:
+            def hook(module, input, output):
                 return add_feature_on_area_turbo(
                     saes_dict[block],
                     brush_index,
