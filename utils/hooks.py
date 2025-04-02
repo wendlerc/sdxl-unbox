@@ -11,40 +11,31 @@ def add_feature(sae, feature_idx, value, module, input, output):
 
 
 @torch.no_grad()
-def add_feature_on_area(sae, feature_idx, activation_map, module, input, output):
+def add_feature_on_area_base(sae, feature_idx, activation_map, module, input, output):
+    # this assumes diff.shape[0] == 2
     diff = (output[0] - input[0]).permute((0, 2, 3, 1)).to(sae.device)
-    if diff.shape[0] == 2:
-        diff_uncond, diff_cond = diff.chunk(2)
-    else:
-        diff_cond = diff
+    diff_uncond, diff_cond = diff.chunk(2)
     activated = sae.encode(diff_cond)
     mask = torch.zeros_like(activated, device=diff_cond.device)
     if len(activation_map) == 2:
         activation_map = activation_map.unsqueeze(0)
     mask[..., feature_idx] = mask[..., feature_idx] = activation_map.to(mask.device)
     to_add = mask @ sae.decoder.weight.T
-    if diff.shape[0] == 2:
-        output[0][1] += to_add.permute(0, 3, 1, 2).to(output[0].device)[0]
-        return output
-    else:
-        return (output[0] + to_add.permute(0, 3, 1, 2).to(output[0].device),)
+    output[0][1] += to_add.permute(0, 3, 1, 2).to(output[0].device)[0]
+    return output
 
 @torch.no_grad()
-def replace_with_feature(sae, feature_idx, value, module, input, output):
+def replace_with_feature_base(sae, feature_idx, value, module, input, output):
+    # this assumes diff.shape[0] == 2
     diff = (output[0] - input[0]).permute((0, 2, 3, 1)).to(sae.device)
-    if diff.shape[0] == 2:
-        diff_uncond, diff_cond = diff.chunk(2)
-    else:
-        diff_cond = diff
+    diff_uncond, diff_cond = diff.chunk(2)
     activated = sae.encode(diff_cond)
     mask = torch.zeros_like(activated, device=diff_cond.device)
     mask[..., feature_idx] = value
     to_add = mask @ sae.decoder.weight.T
-    if diff.shape[0] == 2:  
-        input[0][1] += to_add.permute(0, 3, 1, 2).to(output[0].device)[0]
-        return input
-    else:
-        return (input[0] + to_add.permute(0, 3, 1, 2).to(output[0].device),)
+    input[0][1] += to_add.permute(0, 3, 1, 2).to(output[0].device)[0]
+    return input
+
 
 @torch.no_grad()
 def add_feature_on_area_turbo(sae, feature_idx, activation_map, module, input, output):

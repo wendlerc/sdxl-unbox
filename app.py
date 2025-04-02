@@ -4,11 +4,10 @@ import torch
 from PIL import Image
 from SDLens import HookedStableDiffusionXLPipeline
 from SAE import SparseAutoencoder
-from utils import add_feature_on_area
+from utils import add_feature_on_area_base, replace_with_feature_base, add_feature_on_area_turbo, replace_with_feature_turbo
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from utils import add_feature_on_area, replace_with_feature
 import threading
 from retrieval import FeatureRetriever
 
@@ -244,15 +243,23 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
             gr.Info("No mask selected, please draw on the input image")
 
         def hook(module, input, output):
-            return add_feature_on_area(
-                saes_dict[block],
-                brush_index,
-                mask * means_dict[block][brush_index] * strength,
-                module,
-                input,
-                output
-            )
-
+            if is_base_model:
+                return add_feature_on_area_base(
+                    saes_dict[block],
+                    brush_index,
+                    mask * means_dict[block][brush_index] * strength,
+                    module,
+                    input,
+                    output
+                )
+            else:
+                return add_feature_on_area_turbo(
+                    saes_dict[block],
+                    brush_index,
+                    mask * means_dict[block][brush_index] * strength,
+                    module,
+                    input, 
+                    output)
         lock.acquire()
         is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
         default_guidance = base_guidance_scale_default if is_base_model else turbo_guidance_scale_default
@@ -276,15 +283,23 @@ def create_intervene_part(pipe: HookedStableDiffusionXLPipeline, saes_dict, mean
             gr.Info("Note that Feature Icon works best with down.2.1 and up.0.1 blocks but feel free to explore", duration=3)
 
         def hook(module, input, output):
-            return replace_with_feature(
-                saes_dict[block],
-                brush_index,
-                means_dict[block][brush_index] * saes_dict[block].k,
-                module,
-                input,
-                output
-            )
-
+            if is_base_model:
+                return replace_with_feature_base(
+                    saes_dict[block],
+                    brush_index,
+                    means_dict[block][brush_index] * saes_dict[block].k,
+                    module,
+                    input,
+                    output
+                )
+            else:
+                return replace_with_feature_turbo(
+                    saes_dict[block],
+                    brush_index,
+                    means_dict[block][brush_index] * saes_dict[block].k,
+                    module,
+                    input,
+                    output)
         lock.acquire()
         is_base_model = pipe.pipe.name_or_path == "stabilityai/stable-diffusion-xl-base-1.0"
         n_steps = 25 if is_base_model else 1
