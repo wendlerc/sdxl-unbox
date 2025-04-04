@@ -57,7 +57,7 @@ python scripts/train_sae.py
 
 ## Pretrained Models
 
-We provide pretrained SAE checkpoints for 4 key transformer blocks in SDXL Turbo's U-Net in the `checkpoint` folder. See `example.ipynb` for analysis examples and visualization of learned features. More pretrained SAEs with different parameters are accessible through [HuggingFace repo](https://huggingface.co/surokpro2/sdxl-saes/tree/main).
+We provide pretrained SAE checkpoints for 4 key transformer blocks in SDXL Turbo's U-Net in the `checkpoints` folder. See `example.ipynb` for analysis examples and visualization of learned features. More pretrained SAEs with different parameters are accessible through [HuggingFace repo](https://huggingface.co/surokpro2/sdxl-saes/tree/main).
 
 
 ## Citation
