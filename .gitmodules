@@ -1,0 +1,3 @@
+[submodule "NewtonRaphsonInversion"]
+	path = NewtonRaphsonInversion
+	url = git@github.com:dvirsamuel/NewtonRaphsonInversion.git
