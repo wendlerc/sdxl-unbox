@@ -238,10 +238,15 @@ def explained_variance(recons, x):
     return explained_var.mean()
 
 
-def main():
-    cfg = Config(json.load(open('SAE/config.json')))
+def main(cfg_path='SAE/config.json'):
+    cfg_dict = json.load(open(cfg_path))
+    cfg = Config(cfg_dict)
 
-    dataloader = ActivationsDataloader(cfg.paths_to_latents, cfg.block_name, cfg.bs)
+    if "output_or_diff" in cfg_dict:
+        print(f"Using {cfg_dict['output_or_diff']} as input")
+        dataloader = ActivationsDataloader(cfg.paths_to_latents, cfg.block_name, cfg.bs, output_or_diff=cfg_dict['output_or_diff'])
+    else:
+        dataloader = ActivationsDataloader(cfg.paths_to_latents, cfg.block_name, cfg.bs)
 
     acts_iter = dataloader.iterate()
     stats_acts_sample = torch.cat([
@@ -305,4 +310,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])

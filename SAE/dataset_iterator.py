@@ -5,10 +5,11 @@ import torch
 class ActivationsDataloader:
     def __init__(self, paths_to_datasets, block_name, batch_size, output_or_diff='diff', num_in_buffer=50):
         assert output_or_diff in ['diff', 'output'], "Provide 'output' or 'diff'"
-
+        
         self.dataset = wds.WebDataset(
             [os.path.join(path_to_dataset, f"{block_name}.tar")
-            for path_to_dataset in paths_to_datasets]
+            for path_to_dataset in paths_to_datasets],
+            handler=warn_and_continue,      # skip samples that error
         ).decode("torch")
         self.iter = iter(self.dataset)
         self.buffer = None
