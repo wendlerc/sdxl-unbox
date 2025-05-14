@@ -2,7 +2,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-red)](https://arxiv.org/abs/2410.22366) 
 [![Hugging Face Spaces Demo](https://img.shields.io/badge/Hugging%20Face-Demo-blue)](https://huggingface.co/spaces/surokpro2/Unboxing_SDXL_with_SAEs) 
-[![Colab](https://img.shields.io/badge/Colab-Notebook-yellow)](https://colab.research.google.com/drive/1Sd-g3w2Fwv7pc_fxgeQOR3S_RKr18qMP?usp=sharing)
+[![Colab](https://img.shields.io/badge/Colab-Notebook-yellow)](https://colab.research.google.com/drive/1lWZ2yCRwCf4iuykvb-91QYUNkuzIwI3k?usp=sharing)
 
 
 ![modification demostration](resourses/image.png)
