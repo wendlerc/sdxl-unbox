@@ -13,6 +13,8 @@ from SAE import SparseAutoencoder
 block_code = sys.argv[1]
 num_neurons = int(sys.argv[2])
 k = int(sys.argv[3])
+checkpoint_prefix = sys.argv[4]
+suffix = sys.argv[5]
 save_previews = False
 
 code_to_block = {
@@ -27,11 +29,11 @@ path = "/share/datasets/datasets/sdxl-turbo-latents/2025-05-06 12:18:50.608813/"
 dataset = wds.WebDataset(f"{path}{block_name}.tar").decode("torch")
 cutoff = 2000
 
-num_top_images = 10
+num_top_images = 100
 
 sae_name = f'{block_name}_k{k}_hidden{num_neurons}_auxk256_bs4096_lr0.0001'
 
-path_to_checkpoint = f"checkpoints/{sae_name}/final"
+path_to_checkpoint = f"{checkpoint_prefix}/{sae_name}/{suffix}"
 
 sae = SparseAutoencoder.load_from_disk(
     path_to_checkpoint
