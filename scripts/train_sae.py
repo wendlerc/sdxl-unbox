@@ -238,29 +238,30 @@ def explained_variance(recons, x):
     return explained_var.mean()
 
 
-def main():
-    cfg = Config(json.load(open('SAE/config.json')))
-
-    dataloader = ActivationsDataloader(cfg.paths_to_latents, cfg.block_name, cfg.bs)
-
+def main(cfg_path='SAE/config.json'):
+    cfg_dict = json.load(open(cfg_path))
+    cfg = Config(cfg_dict)
+    dataloader = ActivationsDataloader(cfg.paths_to_latents, cfg.block_name, cfg.bs, cfg.n_epochs)
+    #print(f"Loading {cfg.block_name} from {cfg.paths_to_latents}")
+    #print(next(dataloader.iterate()))
     acts_iter = dataloader.iterate()
     stats_acts_sample = torch.cat([
         next(acts_iter).cpu() for _ in range(10)
     ], dim=0)
 
-    aes = [
-        SparseAutoencoder(
-            n_dirs_local=sae.n_dirs,
-            d_model=sae.d_model,
-            k=sae.k,
-            auxk=sae.auxk,
-            dead_steps_threshold=sae.dead_toks_threshold // cfg.bs,
-        ).cuda()
-        for sae in cfg.saes
-    ]
-    
-    for ae in aes:
-        init_from_data_(ae, stats_acts_sample)
+    aes = []
+    for sae in cfg.saes:
+        if sae.from_pretrained is not None:
+            aes.append(SparseAutoencoder.load_from_disk(sae.from_pretrained).cuda())
+        else:
+            aes.append(SparseAutoencoder(
+                n_dirs_local=sae.n_dirs,
+                d_model=sae.d_model,
+                k=sae.k,
+                auxk=sae.auxk,
+                dead_steps_threshold=sae.dead_toks_threshold // cfg.bs,
+            ).cuda())
+            init_from_data_(aes[-1], stats_acts_sample)        
     
     mse_scale = (
         1 / ((stats_acts_sample.float().mean(dim=0) - stats_acts_sample.float()) ** 2).mean()
@@ -305,4 +306,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])

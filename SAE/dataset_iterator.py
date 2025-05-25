@@ -3,12 +3,12 @@ import os
 import torch
 
 class ActivationsDataloader:
-    def __init__(self, paths_to_datasets, block_name, batch_size, output_or_diff='diff', num_in_buffer=50):
+    def __init__(self, paths_to_datasets, block_name, batch_size, n_epochs=1, output_or_diff='diff', num_in_buffer=50):
         assert output_or_diff in ['diff', 'output'], "Provide 'output' or 'diff'"
 
         self.dataset = wds.WebDataset(
             [os.path.join(path_to_dataset, f"{block_name}.tar")
-            for path_to_dataset in paths_to_datasets]
+            for path_to_dataset in paths_to_datasets] * n_epochs  
         ).decode("torch")
         self.iter = iter(self.dataset)
         self.buffer = None
@@ -46,8 +46,8 @@ class ActivationsDataloader:
         
             batch = self.buffer[self.pointer: self.pointer + self.batch_size]
             self.pointer += self.batch_size
-
-            assert batch.shape[0] == self.batch_size
+            # print(batch.shape)
+            #assert batch.shape[0] == self.batch_size
             yield batch
 
     

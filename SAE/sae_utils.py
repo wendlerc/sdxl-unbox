@@ -14,6 +14,7 @@ class SAETrainingConfig:
     eps: float = 6.25e-10
     dead_toks_threshold: int = 10_000_000
     auxk_coef: float = 1/32
+    from_pretrained: str = None
 
     @property
     def sae_name(self):
@@ -21,7 +22,7 @@ class SAETrainingConfig:
     
     @property
     def save_path(self):
-        return f'/dlabscratch1/surkov/sae_models/{self.block_name}_k{self.k}_hidden{self.n_dirs}_auxk{self.auxk}_bs{self.bs}_lr{self.lr}'
+        return f'{self.save_path_base}/{self.block_name}_k{self.k}_hidden{self.n_dirs}_auxk{self.auxk}_bs{self.bs}_lr{self.lr}'
 
 
 @dataclass
@@ -34,7 +35,7 @@ class Config:
     block_name: str
     wandb_project: str = 'sdxl_sae_train'
     wandb_name: str = 'multiple_sae'
-
+    n_epochs: int = 1
     def __init__(self, cfg_json):
         self.saes = [SAETrainingConfig(**sae_cfg, block_name=cfg_json['block_name'], bs=cfg_json['bs'], save_path_base=cfg_json['save_path_base']) 
                     for sae_cfg in cfg_json['sae_configs']]
@@ -45,3 +46,7 @@ class Config:
         self.save_interval = cfg_json['save_interval']
         self.bs = cfg_json['bs']
         self.block_name = cfg_json['block_name']
+        if 'n_epochs' in cfg_json:
+            self.n_epochs = cfg_json['n_epochs']
+        else:
+            self.n_epochs = 1
