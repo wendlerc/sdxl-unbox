@@ -1,0 +1,361 @@
+prompt,block,lpips_to_ref,clip_score
+a photo of a colorful model,Reference,0.0,0.2298583984375
+a photo of a colorful model,down_blocks.0.resnets.0,0.6600905656814575,0.2021484375
+a photo of a colorful model,down_blocks.0.resnets.1,0.4628676176071167,0.2039794921875
+a photo of a colorful model,down_blocks.1.resnets.0,0.6895574331283569,0.2161865234375
+a photo of a colorful model,down_blocks.1.resnets.1,0.5918798446655273,0.225341796875
+a photo of a colorful model,down_blocks.2.resnets.0,0.6021191477775574,0.218505859375
+a photo of a colorful model,down_blocks.2.resnets.1,0.2252446413040161,0.239501953125
+a photo of a colorful model,mid_block.resnets.0,0.36546584963798523,0.2342529296875
+a photo of a colorful model,mid_block.resnets.1,0.1716446727514267,0.2352294921875
+a photo of a colorful model,up_blocks.0.resnets.0,0.4794248342514038,0.2008056640625
+a photo of a colorful model,up_blocks.0.resnets.1,0.2065563052892685,0.22900390625
+a photo of a colorful model,up_blocks.0.resnets.2,0.185781329870224,0.2266845703125
+a photo of a colorful model,up_blocks.1.resnets.0,0.27610886096954346,0.2244873046875
+a photo of a colorful model,up_blocks.1.resnets.1,0.26564761996269226,0.2235107421875
+a photo of a colorful model,up_blocks.1.resnets.2,0.23799066245555878,0.2349853515625
+a photo of a colorful model,up_blocks.2.resnets.0,0.2572427988052368,0.2210693359375
+a photo of a colorful model,up_blocks.2.resnets.1,0.6125106811523438,0.2047119140625
+a photo of a colorful model,up_blocks.2.resnets.2,0.7688624858856201,0.214111328125
+a painting of a futuristic city at sunset,Reference,0.0,0.302734375
+a painting of a futuristic city at sunset,down_blocks.0.resnets.0,0.7818362712860107,0.1602783203125
+a painting of a futuristic city at sunset,down_blocks.0.resnets.1,0.4099876880645752,0.316650390625
+a painting of a futuristic city at sunset,down_blocks.1.resnets.0,0.3999420404434204,0.33203125
+a painting of a futuristic city at sunset,down_blocks.1.resnets.1,0.20470307767391205,0.314453125
+a painting of a futuristic city at sunset,down_blocks.2.resnets.0,0.45368629693984985,0.303466796875
+a painting of a futuristic city at sunset,down_blocks.2.resnets.1,0.3477753698825836,0.30078125
+a painting of a futuristic city at sunset,mid_block.resnets.0,0.1829734891653061,0.301025390625
+a painting of a futuristic city at sunset,mid_block.resnets.1,0.08907333761453629,0.30322265625
+a painting of a futuristic city at sunset,up_blocks.0.resnets.0,0.254710853099823,0.304443359375
+a painting of a futuristic city at sunset,up_blocks.0.resnets.1,0.16169551014900208,0.323974609375
+a painting of a futuristic city at sunset,up_blocks.0.resnets.2,0.1515912264585495,0.32470703125
+a painting of a futuristic city at sunset,up_blocks.1.resnets.0,0.20354357361793518,0.31591796875
+a painting of a futuristic city at sunset,up_blocks.1.resnets.1,0.15636640787124634,0.32177734375
+a painting of a futuristic city at sunset,up_blocks.1.resnets.2,0.24466009438037872,0.299560546875
+a painting of a futuristic city at sunset,up_blocks.2.resnets.0,0.3082737922668457,0.302734375
+a painting of a futuristic city at sunset,up_blocks.2.resnets.1,0.7576093077659607,0.1505126953125
+a painting of a futuristic city at sunset,up_blocks.2.resnets.2,0.8810113072395325,0.134521484375
+a close-up of a cat wearing sunglasses,Reference,0.0,0.30615234375
+a close-up of a cat wearing sunglasses,down_blocks.0.resnets.0,0.7247794270515442,0.1617431640625
+a close-up of a cat wearing sunglasses,down_blocks.0.resnets.1,0.27429166436195374,0.31201171875
+a close-up of a cat wearing sunglasses,down_blocks.1.resnets.0,0.41504716873168945,0.311767578125
+a close-up of a cat wearing sunglasses,down_blocks.1.resnets.1,0.16855889558792114,0.306884765625
+a close-up of a cat wearing sunglasses,down_blocks.2.resnets.0,0.6523025035858154,0.30322265625
+a close-up of a cat wearing sunglasses,down_blocks.2.resnets.1,0.19864791631698608,0.31103515625
+a close-up of a cat wearing sunglasses,mid_block.resnets.0,0.19731615483760834,0.30322265625
+a close-up of a cat wearing sunglasses,mid_block.resnets.1,0.08807913959026337,0.306884765625
+a close-up of a cat wearing sunglasses,up_blocks.0.resnets.0,0.407448410987854,0.298583984375
+a close-up of a cat wearing sunglasses,up_blocks.0.resnets.1,0.12610331177711487,0.3017578125
+a close-up of a cat wearing sunglasses,up_blocks.0.resnets.2,0.11518042534589767,0.30810546875
+a close-up of a cat wearing sunglasses,up_blocks.1.resnets.0,0.16375118494033813,0.3056640625
+a close-up of a cat wearing sunglasses,up_blocks.1.resnets.1,0.1495436728000641,0.308837890625
+a close-up of a cat wearing sunglasses,up_blocks.1.resnets.2,0.16833332180976868,0.3056640625
+a close-up of a cat wearing sunglasses,up_blocks.2.resnets.0,0.2424902617931366,0.323974609375
+a close-up of a cat wearing sunglasses,up_blocks.2.resnets.1,0.7262220978736877,0.1663818359375
+a close-up of a cat wearing sunglasses,up_blocks.2.resnets.2,0.8596854209899902,0.1673583984375
+a landscape of snowy mountains under a starry sky,Reference,0.0,0.274658203125
+a landscape of snowy mountains under a starry sky,down_blocks.0.resnets.0,0.8695458173751831,0.140869140625
+a landscape of snowy mountains under a starry sky,down_blocks.0.resnets.1,0.4581466615200043,0.298828125
+a landscape of snowy mountains under a starry sky,down_blocks.1.resnets.0,0.4145219326019287,0.298828125
+a landscape of snowy mountains under a starry sky,down_blocks.1.resnets.1,0.2411867082118988,0.286865234375
+a landscape of snowy mountains under a starry sky,down_blocks.2.resnets.0,0.4265521168708801,0.27197265625
+a landscape of snowy mountains under a starry sky,down_blocks.2.resnets.1,0.1861724555492401,0.28515625
+a landscape of snowy mountains under a starry sky,mid_block.resnets.0,0.12862955033779144,0.27978515625
+a landscape of snowy mountains under a starry sky,mid_block.resnets.1,0.08131040632724762,0.284423828125
+a landscape of snowy mountains under a starry sky,up_blocks.0.resnets.0,0.21958190202713013,0.284423828125
+a landscape of snowy mountains under a starry sky,up_blocks.0.resnets.1,0.12679427862167358,0.274658203125
+a landscape of snowy mountains under a starry sky,up_blocks.0.resnets.2,0.12745924293994904,0.280517578125
+a landscape of snowy mountains under a starry sky,up_blocks.1.resnets.0,0.1379384547472,0.284912109375
+a landscape of snowy mountains under a starry sky,up_blocks.1.resnets.1,0.13056619465351105,0.283203125
+a landscape of snowy mountains under a starry sky,up_blocks.1.resnets.2,0.23722395300865173,0.255126953125
+a landscape of snowy mountains under a starry sky,up_blocks.2.resnets.0,0.38102826476097107,0.24658203125
+a landscape of snowy mountains under a starry sky,up_blocks.2.resnets.1,0.820006787776947,0.1458740234375
+a landscape of snowy mountains under a starry sky,up_blocks.2.resnets.2,0.9847098588943481,0.126220703125
+a futuristic robot in a neon-lit alley,Reference,0.0,0.29541015625
+a futuristic robot in a neon-lit alley,down_blocks.0.resnets.0,0.7361998558044434,0.1221923828125
+a futuristic robot in a neon-lit alley,down_blocks.0.resnets.1,0.41839152574539185,0.312255859375
+a futuristic robot in a neon-lit alley,down_blocks.1.resnets.0,0.5201043486595154,0.299560546875
+a futuristic robot in a neon-lit alley,down_blocks.1.resnets.1,0.36418527364730835,0.289794921875
+a futuristic robot in a neon-lit alley,down_blocks.2.resnets.0,0.5472859144210815,0.30322265625
+a futuristic robot in a neon-lit alley,down_blocks.2.resnets.1,0.21521560847759247,0.286376953125
+a futuristic robot in a neon-lit alley,mid_block.resnets.0,0.1839025765657425,0.314208984375
+a futuristic robot in a neon-lit alley,mid_block.resnets.1,0.1618778258562088,0.294921875
+a futuristic robot in a neon-lit alley,up_blocks.0.resnets.0,0.3577095568180084,0.291748046875
+a futuristic robot in a neon-lit alley,up_blocks.0.resnets.1,0.2142605483531952,0.293212890625
+a futuristic robot in a neon-lit alley,up_blocks.0.resnets.2,0.18336471915245056,0.299560546875
+a futuristic robot in a neon-lit alley,up_blocks.1.resnets.0,0.22080983221530914,0.2978515625
+a futuristic robot in a neon-lit alley,up_blocks.1.resnets.1,0.18734243512153625,0.30078125
+a futuristic robot in a neon-lit alley,up_blocks.1.resnets.2,0.20971213281154633,0.3125
+a futuristic robot in a neon-lit alley,up_blocks.2.resnets.0,0.266197144985199,0.310546875
+a futuristic robot in a neon-lit alley,up_blocks.2.resnets.1,0.649337649345398,0.1536865234375
+a futuristic robot in a neon-lit alley,up_blocks.2.resnets.2,0.8081561923027039,0.1563720703125
+a serene beach at sunrise with palm trees,Reference,0.0,0.2474365234375
+a serene beach at sunrise with palm trees,down_blocks.0.resnets.0,0.7648981809616089,0.089599609375
+a serene beach at sunrise with palm trees,down_blocks.0.resnets.1,0.5917311906814575,0.2421875
+a serene beach at sunrise with palm trees,down_blocks.1.resnets.0,0.5159398317337036,0.2474365234375
+a serene beach at sunrise with palm trees,down_blocks.1.resnets.1,0.3851373493671417,0.25341796875
+a serene beach at sunrise with palm trees,down_blocks.2.resnets.0,0.5414698123931885,0.2403564453125
+a serene beach at sunrise with palm trees,down_blocks.2.resnets.1,0.3668588399887085,0.247314453125
+a serene beach at sunrise with palm trees,mid_block.resnets.0,0.374101847410202,0.250244140625
+a serene beach at sunrise with palm trees,mid_block.resnets.1,0.16266502439975739,0.25146484375
+a serene beach at sunrise with palm trees,up_blocks.0.resnets.0,0.3216046094894409,0.2548828125
+a serene beach at sunrise with palm trees,up_blocks.0.resnets.1,0.1332201063632965,0.251220703125
+a serene beach at sunrise with palm trees,up_blocks.0.resnets.2,0.12592455744743347,0.250732421875
+a serene beach at sunrise with palm trees,up_blocks.1.resnets.0,0.14597617089748383,0.2470703125
+a serene beach at sunrise with palm trees,up_blocks.1.resnets.1,0.09561890363693237,0.240966796875
+a serene beach at sunrise with palm trees,up_blocks.1.resnets.2,0.15156540274620056,0.2489013671875
+a serene beach at sunrise with palm trees,up_blocks.2.resnets.0,0.28606948256492615,0.246337890625
+a serene beach at sunrise with palm trees,up_blocks.2.resnets.1,0.7683431506156921,0.07135009765625
+a serene beach at sunrise with palm trees,up_blocks.2.resnets.2,0.8888124227523804,0.073974609375
+a portrait of a woman with rainbow hair,Reference,0.0,0.269287109375
+a portrait of a woman with rainbow hair,down_blocks.0.resnets.0,0.774420440196991,0.1751708984375
+a portrait of a woman with rainbow hair,down_blocks.0.resnets.1,0.3702152669429779,0.2705078125
+a portrait of a woman with rainbow hair,down_blocks.1.resnets.0,0.25127384066581726,0.25732421875
+a portrait of a woman with rainbow hair,down_blocks.1.resnets.1,0.12013928592205048,0.260986328125
+a portrait of a woman with rainbow hair,down_blocks.2.resnets.0,0.5434106588363647,0.262939453125
+a portrait of a woman with rainbow hair,down_blocks.2.resnets.1,0.18577030301094055,0.25830078125
+a portrait of a woman with rainbow hair,mid_block.resnets.0,0.27198880910873413,0.264892578125
+a portrait of a woman with rainbow hair,mid_block.resnets.1,0.1110992282629013,0.2666015625
+a portrait of a woman with rainbow hair,up_blocks.0.resnets.0,0.35573768615722656,0.216796875
+a portrait of a woman with rainbow hair,up_blocks.0.resnets.1,0.12692596018314362,0.272705078125
+a portrait of a woman with rainbow hair,up_blocks.0.resnets.2,0.1402016282081604,0.274658203125
+a portrait of a woman with rainbow hair,up_blocks.1.resnets.0,0.1525651216506958,0.26220703125
+a portrait of a woman with rainbow hair,up_blocks.1.resnets.1,0.17850640416145325,0.27197265625
+a portrait of a woman with rainbow hair,up_blocks.1.resnets.2,0.18607506155967712,0.28369140625
+a portrait of a woman with rainbow hair,up_blocks.2.resnets.0,0.2103058099746704,0.294921875
+a portrait of a woman with rainbow hair,up_blocks.2.resnets.1,0.7645639181137085,0.185546875
+a portrait of a woman with rainbow hair,up_blocks.2.resnets.2,0.8901106119155884,0.187255859375
+a bustling market in a medieval town,Reference,0.0,0.29296875
+a bustling market in a medieval town,down_blocks.0.resnets.0,0.6716799139976501,0.1319580078125
+a bustling market in a medieval town,down_blocks.0.resnets.1,0.3597111105918884,0.2841796875
+a bustling market in a medieval town,down_blocks.1.resnets.0,0.4185076653957367,0.284423828125
+a bustling market in a medieval town,down_blocks.1.resnets.1,0.2945438027381897,0.278076171875
+a bustling market in a medieval town,down_blocks.2.resnets.0,0.5372500419616699,0.27587890625
+a bustling market in a medieval town,down_blocks.2.resnets.1,0.2643706798553467,0.292236328125
+a bustling market in a medieval town,mid_block.resnets.0,0.21308788657188416,0.292236328125
+a bustling market in a medieval town,mid_block.resnets.1,0.14873237907886505,0.296142578125
+a bustling market in a medieval town,up_blocks.0.resnets.0,0.39936310052871704,0.286376953125
+a bustling market in a medieval town,up_blocks.0.resnets.1,0.18019999563694,0.287353515625
+a bustling market in a medieval town,up_blocks.0.resnets.2,0.1704840362071991,0.291015625
+a bustling market in a medieval town,up_blocks.1.resnets.0,0.24361257255077362,0.289306640625
+a bustling market in a medieval town,up_blocks.1.resnets.1,0.18898189067840576,0.291748046875
+a bustling market in a medieval town,up_blocks.1.resnets.2,0.23218950629234314,0.279052734375
+a bustling market in a medieval town,up_blocks.2.resnets.0,0.3143875300884247,0.275634765625
+a bustling market in a medieval town,up_blocks.2.resnets.1,0.6564523577690125,0.1258544921875
+a bustling market in a medieval town,up_blocks.2.resnets.2,0.811999499797821,0.1134033203125
+a fantasy castle floating in the clouds,Reference,0.0,0.324462890625
+a fantasy castle floating in the clouds,down_blocks.0.resnets.0,0.7363311052322388,0.141845703125
+a fantasy castle floating in the clouds,down_blocks.0.resnets.1,0.3605177104473114,0.327392578125
+a fantasy castle floating in the clouds,down_blocks.1.resnets.0,0.35057929158210754,0.326416015625
+a fantasy castle floating in the clouds,down_blocks.1.resnets.1,0.22932542860507965,0.326171875
+a fantasy castle floating in the clouds,down_blocks.2.resnets.0,0.3752324879169464,0.330810546875
+a fantasy castle floating in the clouds,down_blocks.2.resnets.1,0.1868756115436554,0.316162109375
+a fantasy castle floating in the clouds,mid_block.resnets.0,0.18800978362560272,0.32373046875
+a fantasy castle floating in the clouds,mid_block.resnets.1,0.07989619672298431,0.328369140625
+a fantasy castle floating in the clouds,up_blocks.0.resnets.0,0.229947030544281,0.3212890625
+a fantasy castle floating in the clouds,up_blocks.0.resnets.1,0.1289183646440506,0.317138671875
+a fantasy castle floating in the clouds,up_blocks.0.resnets.2,0.10850974917411804,0.312255859375
+a fantasy castle floating in the clouds,up_blocks.1.resnets.0,0.14354673027992249,0.31396484375
+a fantasy castle floating in the clouds,up_blocks.1.resnets.1,0.11625172197818756,0.315185546875
+a fantasy castle floating in the clouds,up_blocks.1.resnets.2,0.13939517736434937,0.325927734375
+a fantasy castle floating in the clouds,up_blocks.2.resnets.0,0.21127337217330933,0.31494140625
+a fantasy castle floating in the clouds,up_blocks.2.resnets.1,0.7314925789833069,0.1318359375
+a fantasy castle floating in the clouds,up_blocks.2.resnets.2,0.87104731798172,0.1014404296875
+a macro shot of a dew-covered spider web,Reference,0.0,0.260498046875
+a macro shot of a dew-covered spider web,down_blocks.0.resnets.0,0.6535230875015259,0.1060791015625
+a macro shot of a dew-covered spider web,down_blocks.0.resnets.1,0.3937531113624573,0.2481689453125
+a macro shot of a dew-covered spider web,down_blocks.1.resnets.0,0.3950170874595642,0.257080078125
+a macro shot of a dew-covered spider web,down_blocks.1.resnets.1,0.3587191700935364,0.262939453125
+a macro shot of a dew-covered spider web,down_blocks.2.resnets.0,0.38415148854255676,0.260009765625
+a macro shot of a dew-covered spider web,down_blocks.2.resnets.1,0.19714240729808807,0.254638671875
+a macro shot of a dew-covered spider web,mid_block.resnets.0,0.29369476437568665,0.26025390625
+a macro shot of a dew-covered spider web,mid_block.resnets.1,0.14137913286685944,0.25927734375
+a macro shot of a dew-covered spider web,up_blocks.0.resnets.0,0.32890504598617554,0.270263671875
+a macro shot of a dew-covered spider web,up_blocks.0.resnets.1,0.20427179336547852,0.2529296875
+a macro shot of a dew-covered spider web,up_blocks.0.resnets.2,0.25918692350387573,0.260498046875
+a macro shot of a dew-covered spider web,up_blocks.1.resnets.0,0.31897222995758057,0.26513671875
+a macro shot of a dew-covered spider web,up_blocks.1.resnets.1,0.37297001481056213,0.26171875
+a macro shot of a dew-covered spider web,up_blocks.1.resnets.2,0.3219360113143921,0.251953125
+a macro shot of a dew-covered spider web,up_blocks.2.resnets.0,0.3561938405036926,0.25146484375
+a macro shot of a dew-covered spider web,up_blocks.2.resnets.1,0.6664385199546814,0.1175537109375
+a macro shot of a dew-covered spider web,up_blocks.2.resnets.2,0.8086820244789124,0.096435546875
+a cyberpunk street scene at night,Reference,0.0,0.272705078125
+a cyberpunk street scene at night,down_blocks.0.resnets.0,0.7228847742080688,0.11358642578125
+a cyberpunk street scene at night,down_blocks.0.resnets.1,0.3705255687236786,0.29736328125
+a cyberpunk street scene at night,down_blocks.1.resnets.0,0.36078163981437683,0.286865234375
+a cyberpunk street scene at night,down_blocks.1.resnets.1,0.23599638044834137,0.268798828125
+a cyberpunk street scene at night,down_blocks.2.resnets.0,0.46704205870628357,0.2381591796875
+a cyberpunk street scene at night,down_blocks.2.resnets.1,0.23091278970241547,0.26806640625
+a cyberpunk street scene at night,mid_block.resnets.0,0.17399711906909943,0.2763671875
+a cyberpunk street scene at night,mid_block.resnets.1,0.12617383897304535,0.2802734375
+a cyberpunk street scene at night,up_blocks.0.resnets.0,0.34166476130485535,0.287109375
+a cyberpunk street scene at night,up_blocks.0.resnets.1,0.18910826742649078,0.288330078125
+a cyberpunk street scene at night,up_blocks.0.resnets.2,0.18982966244220734,0.276611328125
+a cyberpunk street scene at night,up_blocks.1.resnets.0,0.2317548394203186,0.278564453125
+a cyberpunk street scene at night,up_blocks.1.resnets.1,0.17256315052509308,0.275634765625
+a cyberpunk street scene at night,up_blocks.1.resnets.2,0.22132577002048492,0.287353515625
+a cyberpunk street scene at night,up_blocks.2.resnets.0,0.2562655508518219,0.2861328125
+a cyberpunk street scene at night,up_blocks.2.resnets.1,0.6541028022766113,0.140625
+a cyberpunk street scene at night,up_blocks.2.resnets.2,0.839271068572998,0.1417236328125
+a magical forest with glowing mushrooms,Reference,0.0,0.266357421875
+a magical forest with glowing mushrooms,down_blocks.0.resnets.0,0.6915987730026245,0.152099609375
+a magical forest with glowing mushrooms,down_blocks.0.resnets.1,0.4061710834503174,0.28369140625
+a magical forest with glowing mushrooms,down_blocks.1.resnets.0,0.5801106691360474,0.266357421875
+a magical forest with glowing mushrooms,down_blocks.1.resnets.1,0.38424232602119446,0.25634765625
+a magical forest with glowing mushrooms,down_blocks.2.resnets.0,0.617426872253418,0.268310546875
+a magical forest with glowing mushrooms,down_blocks.2.resnets.1,0.24386800825595856,0.275390625
+a magical forest with glowing mushrooms,mid_block.resnets.0,0.17620696127414703,0.2666015625
+a magical forest with glowing mushrooms,mid_block.resnets.1,0.11651171743869781,0.270263671875
+a magical forest with glowing mushrooms,up_blocks.0.resnets.0,0.33476579189300537,0.284423828125
+a magical forest with glowing mushrooms,up_blocks.0.resnets.1,0.1632804572582245,0.281982421875
+a magical forest with glowing mushrooms,up_blocks.0.resnets.2,0.1474016010761261,0.273193359375
+a magical forest with glowing mushrooms,up_blocks.1.resnets.0,0.22200362384319305,0.268798828125
+a magical forest with glowing mushrooms,up_blocks.1.resnets.1,0.15860876441001892,0.277099609375
+a magical forest with glowing mushrooms,up_blocks.1.resnets.2,0.2114780992269516,0.28515625
+a magical forest with glowing mushrooms,up_blocks.2.resnets.0,0.26026153564453125,0.2861328125
+a magical forest with glowing mushrooms,up_blocks.2.resnets.1,0.6139478087425232,0.198974609375
+a magical forest with glowing mushrooms,up_blocks.2.resnets.2,0.8060906529426575,0.1231689453125
+a vintage car parked in front of a diner,Reference,0.0,0.276611328125
+a vintage car parked in front of a diner,down_blocks.0.resnets.0,0.7369256019592285,0.09747314453125
+a vintage car parked in front of a diner,down_blocks.0.resnets.1,0.3633577227592468,0.2783203125
+a vintage car parked in front of a diner,down_blocks.1.resnets.0,0.5306801795959473,0.265869140625
+a vintage car parked in front of a diner,down_blocks.1.resnets.1,0.32215964794158936,0.28173828125
+a vintage car parked in front of a diner,down_blocks.2.resnets.0,0.6373829245567322,0.254150390625
+a vintage car parked in front of a diner,down_blocks.2.resnets.1,0.450697660446167,0.270263671875
+a vintage car parked in front of a diner,mid_block.resnets.0,0.3079507052898407,0.256103515625
+a vintage car parked in front of a diner,mid_block.resnets.1,0.1881026029586792,0.277587890625
+a vintage car parked in front of a diner,up_blocks.0.resnets.0,0.43753325939178467,0.2474365234375
+a vintage car parked in front of a diner,up_blocks.0.resnets.1,0.17283518612384796,0.278076171875
+a vintage car parked in front of a diner,up_blocks.0.resnets.2,0.15682944655418396,0.264404296875
+a vintage car parked in front of a diner,up_blocks.1.resnets.0,0.2138034552335739,0.2763671875
+a vintage car parked in front of a diner,up_blocks.1.resnets.1,0.14690959453582764,0.2724609375
+a vintage car parked in front of a diner,up_blocks.1.resnets.2,0.13697321712970734,0.284912109375
+a vintage car parked in front of a diner,up_blocks.2.resnets.0,0.22751674056053162,0.26904296875
+a vintage car parked in front of a diner,up_blocks.2.resnets.1,0.6917351484298706,0.08880615234375
+a vintage car parked in front of a diner,up_blocks.2.resnets.2,0.8309164047241211,0.09893798828125
+a group of astronauts on an alien planet,Reference,0.0,0.25732421875
+a group of astronauts on an alien planet,down_blocks.0.resnets.0,0.7363457083702087,0.14208984375
+a group of astronauts on an alien planet,down_blocks.0.resnets.1,0.4172266721725464,0.2548828125
+a group of astronauts on an alien planet,down_blocks.1.resnets.0,0.42823168635368347,0.255615234375
+a group of astronauts on an alien planet,down_blocks.1.resnets.1,0.3429126441478729,0.255615234375
+a group of astronauts on an alien planet,down_blocks.2.resnets.0,0.44524848461151123,0.268798828125
+a group of astronauts on an alien planet,down_blocks.2.resnets.1,0.33182573318481445,0.2666015625
+a group of astronauts on an alien planet,mid_block.resnets.0,0.22171077132225037,0.2607421875
+a group of astronauts on an alien planet,mid_block.resnets.1,0.09904507547616959,0.25634765625
+a group of astronauts on an alien planet,up_blocks.0.resnets.0,0.29356884956359863,0.25732421875
+a group of astronauts on an alien planet,up_blocks.0.resnets.1,0.16812026500701904,0.26220703125
+a group of astronauts on an alien planet,up_blocks.0.resnets.2,0.12741246819496155,0.256103515625
+a group of astronauts on an alien planet,up_blocks.1.resnets.0,0.18387185037136078,0.254638671875
+a group of astronauts on an alien planet,up_blocks.1.resnets.1,0.12196607142686844,0.252685546875
+a group of astronauts on an alien planet,up_blocks.1.resnets.2,0.1700752228498459,0.254638671875
+a group of astronauts on an alien planet,up_blocks.2.resnets.0,0.26661524176597595,0.26025390625
+a group of astronauts on an alien planet,up_blocks.2.resnets.1,0.7022983431816101,0.1336669921875
+a group of astronauts on an alien planet,up_blocks.2.resnets.2,0.8416723012924194,0.150634765625
+a dragon flying over a burning village,Reference,0.0,0.258056640625
+a dragon flying over a burning village,down_blocks.0.resnets.0,0.7724881172180176,0.1231689453125
+a dragon flying over a burning village,down_blocks.0.resnets.1,0.4711972773075104,0.27978515625
+a dragon flying over a burning village,down_blocks.1.resnets.0,0.5024393796920776,0.260498046875
+a dragon flying over a burning village,down_blocks.1.resnets.1,0.341179221868515,0.2578125
+a dragon flying over a burning village,down_blocks.2.resnets.0,0.5539931058883667,0.27734375
+a dragon flying over a burning village,down_blocks.2.resnets.1,0.23946723341941833,0.264892578125
+a dragon flying over a burning village,mid_block.resnets.0,0.18855342268943787,0.25732421875
+a dragon flying over a burning village,mid_block.resnets.1,0.14502345025539398,0.255615234375
+a dragon flying over a burning village,up_blocks.0.resnets.0,0.3515160083770752,0.253662109375
+a dragon flying over a burning village,up_blocks.0.resnets.1,0.18851859867572784,0.256103515625
+a dragon flying over a burning village,up_blocks.0.resnets.2,0.1757761687040329,0.255615234375
+a dragon flying over a burning village,up_blocks.1.resnets.0,0.20858226716518402,0.255615234375
+a dragon flying over a burning village,up_blocks.1.resnets.1,0.14306148886680603,0.25146484375
+a dragon flying over a burning village,up_blocks.1.resnets.2,0.23985204100608826,0.268798828125
+a dragon flying over a burning village,up_blocks.2.resnets.0,0.32529786229133606,0.287841796875
+a dragon flying over a burning village,up_blocks.2.resnets.1,0.7482886910438538,0.11328125
+a dragon flying over a burning village,up_blocks.2.resnets.2,0.8960090279579163,0.1290283203125
+a steampunk airship in the sky,Reference,0.0,0.322265625
+a steampunk airship in the sky,down_blocks.0.resnets.0,0.7462591528892517,0.11767578125
+a steampunk airship in the sky,down_blocks.0.resnets.1,0.43981635570526123,0.31396484375
+a steampunk airship in the sky,down_blocks.1.resnets.0,0.4936862885951996,0.31640625
+a steampunk airship in the sky,down_blocks.1.resnets.1,0.3611166179180145,0.31982421875
+a steampunk airship in the sky,down_blocks.2.resnets.0,0.6329865455627441,0.31591796875
+a steampunk airship in the sky,down_blocks.2.resnets.1,0.24869385361671448,0.32080078125
+a steampunk airship in the sky,mid_block.resnets.0,0.26656270027160645,0.315673828125
+a steampunk airship in the sky,mid_block.resnets.1,0.15575890243053436,0.31884765625
+a steampunk airship in the sky,up_blocks.0.resnets.0,0.34410005807876587,0.315673828125
+a steampunk airship in the sky,up_blocks.0.resnets.1,0.1704990118741989,0.31787109375
+a steampunk airship in the sky,up_blocks.0.resnets.2,0.15486115217208862,0.320556640625
+a steampunk airship in the sky,up_blocks.1.resnets.0,0.20756219327449799,0.322021484375
+a steampunk airship in the sky,up_blocks.1.resnets.1,0.18172039091587067,0.3173828125
+a steampunk airship in the sky,up_blocks.1.resnets.2,0.18966667354106903,0.311767578125
+a steampunk airship in the sky,up_blocks.2.resnets.0,0.24929362535476685,0.30908203125
+a steampunk airship in the sky,up_blocks.2.resnets.1,0.71173095703125,0.10406494140625
+a steampunk airship in the sky,up_blocks.2.resnets.2,0.8757811784744263,0.0836181640625
+a child playing with a puppy in a field,Reference,0.0,0.27392578125
+a child playing with a puppy in a field,down_blocks.0.resnets.0,0.7176256775856018,0.126708984375
+a child playing with a puppy in a field,down_blocks.0.resnets.1,0.45786046981811523,0.270751953125
+a child playing with a puppy in a field,down_blocks.1.resnets.0,0.5964337587356567,0.284423828125
+a child playing with a puppy in a field,down_blocks.1.resnets.1,0.327392578125,0.26904296875
+a child playing with a puppy in a field,down_blocks.2.resnets.0,0.5925958752632141,0.278076171875
+a child playing with a puppy in a field,down_blocks.2.resnets.1,0.49113336205482483,0.2464599609375
+a child playing with a puppy in a field,mid_block.resnets.0,0.37360480427742004,0.250732421875
+a child playing with a puppy in a field,mid_block.resnets.1,0.18080846965312958,0.274169921875
+a child playing with a puppy in a field,up_blocks.0.resnets.0,0.42752140760421753,0.276123046875
+a child playing with a puppy in a field,up_blocks.0.resnets.1,0.2027609646320343,0.270263671875
+a child playing with a puppy in a field,up_blocks.0.resnets.2,0.1613944172859192,0.283203125
+a child playing with a puppy in a field,up_blocks.1.resnets.0,0.1709732711315155,0.27294921875
+a child playing with a puppy in a field,up_blocks.1.resnets.1,0.1374354511499405,0.28466796875
+a child playing with a puppy in a field,up_blocks.1.resnets.2,0.16874349117279053,0.288818359375
+a child playing with a puppy in a field,up_blocks.2.resnets.0,0.27163320779800415,0.283203125
+a child playing with a puppy in a field,up_blocks.2.resnets.1,0.6721684336662292,0.132568359375
+a child playing with a puppy in a field,up_blocks.2.resnets.2,0.8302055597305298,0.1280517578125
+a surreal landscape with melting clocks,Reference,0.0,0.28857421875
+a surreal landscape with melting clocks,down_blocks.0.resnets.0,0.6632335782051086,0.1802978515625
+a surreal landscape with melting clocks,down_blocks.0.resnets.1,0.41204607486724854,0.27880859375
+a surreal landscape with melting clocks,down_blocks.1.resnets.0,0.5022785663604736,0.281005859375
+a surreal landscape with melting clocks,down_blocks.1.resnets.1,0.2841781973838806,0.305419921875
+a surreal landscape with melting clocks,down_blocks.2.resnets.0,0.4717971086502075,0.29052734375
+a surreal landscape with melting clocks,down_blocks.2.resnets.1,0.3292402923107147,0.273681640625
+a surreal landscape with melting clocks,mid_block.resnets.0,0.2632841169834137,0.28662109375
+a surreal landscape with melting clocks,mid_block.resnets.1,0.15723012387752533,0.280029296875
+a surreal landscape with melting clocks,up_blocks.0.resnets.0,0.348631352186203,0.298095703125
+a surreal landscape with melting clocks,up_blocks.0.resnets.1,0.2086525857448578,0.28955078125
+a surreal landscape with melting clocks,up_blocks.0.resnets.2,0.15680435299873352,0.2978515625
+a surreal landscape with melting clocks,up_blocks.1.resnets.0,0.1988961100578308,0.311279296875
+a surreal landscape with melting clocks,up_blocks.1.resnets.1,0.1524297297000885,0.301513671875
+a surreal landscape with melting clocks,up_blocks.1.resnets.2,0.16483865678310394,0.2958984375
+a surreal landscape with melting clocks,up_blocks.2.resnets.0,0.24854514002799988,0.31005859375
+a surreal landscape with melting clocks,up_blocks.2.resnets.1,0.6664435267448425,0.1793212890625
+a surreal landscape with melting clocks,up_blocks.2.resnets.2,0.8086346387863159,0.1669921875
+a majestic lion resting in tall grass,Reference,0.0,0.2607421875
+a majestic lion resting in tall grass,down_blocks.0.resnets.0,0.6936743259429932,0.140869140625
+a majestic lion resting in tall grass,down_blocks.0.resnets.1,0.4266340732574463,0.257080078125
+a majestic lion resting in tall grass,down_blocks.1.resnets.0,0.3619709312915802,0.24267578125
+a majestic lion resting in tall grass,down_blocks.1.resnets.1,0.23877134919166565,0.259521484375
+a majestic lion resting in tall grass,down_blocks.2.resnets.0,0.41052883863449097,0.263671875
+a majestic lion resting in tall grass,down_blocks.2.resnets.1,0.2076144814491272,0.2425537109375
+a majestic lion resting in tall grass,mid_block.resnets.0,0.23348364233970642,0.2462158203125
+a majestic lion resting in tall grass,mid_block.resnets.1,0.13787394762039185,0.2548828125
+a majestic lion resting in tall grass,up_blocks.0.resnets.0,0.366890013217926,0.2626953125
+a majestic lion resting in tall grass,up_blocks.0.resnets.1,0.15866294503211975,0.258544921875
+a majestic lion resting in tall grass,up_blocks.0.resnets.2,0.1509028822183609,0.25244140625
+a majestic lion resting in tall grass,up_blocks.1.resnets.0,0.199688121676445,0.255126953125
+a majestic lion resting in tall grass,up_blocks.1.resnets.1,0.17801548540592194,0.251220703125
+a majestic lion resting in tall grass,up_blocks.1.resnets.2,0.2315542995929718,0.25732421875
+a majestic lion resting in tall grass,up_blocks.2.resnets.0,0.345587819814682,0.246337890625
+a majestic lion resting in tall grass,up_blocks.2.resnets.1,0.6997914910316467,0.1435546875
+a majestic lion resting in tall grass,up_blocks.2.resnets.2,0.8140420913696289,0.1380615234375
+a futuristic train speeding through a desert,Reference,0.0,0.28564453125
+a futuristic train speeding through a desert,down_blocks.0.resnets.0,0.8129231333732605,0.161376953125
+a futuristic train speeding through a desert,down_blocks.0.resnets.1,0.4440513849258423,0.2900390625
+a futuristic train speeding through a desert,down_blocks.1.resnets.0,0.4139109253883362,0.27294921875
+a futuristic train speeding through a desert,down_blocks.1.resnets.1,0.3196299374103546,0.29248046875
+a futuristic train speeding through a desert,down_blocks.2.resnets.0,0.5641104578971863,0.275390625
+a futuristic train speeding through a desert,down_blocks.2.resnets.1,0.24432581663131714,0.286865234375
+a futuristic train speeding through a desert,mid_block.resnets.0,0.19113680720329285,0.288818359375
+a futuristic train speeding through a desert,mid_block.resnets.1,0.08792974799871445,0.290771484375
+a futuristic train speeding through a desert,up_blocks.0.resnets.0,0.3512239456176758,0.31494140625
+a futuristic train speeding through a desert,up_blocks.0.resnets.1,0.17082466185092926,0.297119140625
+a futuristic train speeding through a desert,up_blocks.0.resnets.2,0.1448693424463272,0.2939453125
+a futuristic train speeding through a desert,up_blocks.1.resnets.0,0.13383233547210693,0.27978515625
+a futuristic train speeding through a desert,up_blocks.1.resnets.1,0.12369972467422485,0.285400390625
+a futuristic train speeding through a desert,up_blocks.1.resnets.2,0.16474124789237976,0.303466796875
+a futuristic train speeding through a desert,up_blocks.2.resnets.0,0.2116491049528122,0.311767578125
+a futuristic train speeding through a desert,up_blocks.2.resnets.1,0.7403430938720703,0.182861328125
+a futuristic train speeding through a desert,up_blocks.2.resnets.2,0.9104589819908142,0.10693359375
